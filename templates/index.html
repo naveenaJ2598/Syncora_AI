@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Syncora AI | Meeting Intelligence</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>✦ Syncora AI</h2>
+        <p class="tagline">AI Meeting Intelligence</p>
+
+        <nav>
+            <a href="#dashboard" onclick="showDashboard()">Dashboard</a>
+            <a href="#upload" onclick="showSection('upload')">New Meeting</a>
+            <a href="#insights" onclick="showSection('insights')">Meeting Insights</a>
+            <a href="#assistant" onclick="showSection('assistant')">AI Assistant</a>
+            <a href="#history" onclick="showSection('history')">Meeting History</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <span>Powered by GenAI</span>
+        </div>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header>
+            <div>
+                <h1>Meeting Intelligence Dashboard</h1>
+                <p>Turn your meetings into meaningful insights.</p>
+            </div>
+
+            <span class="status">● AI Ready</span>
+        </header>
+
+
+        <!-- Dashboard -->
+        <section id="dashboard">
+
+            <section class="welcome">
+
+                <h2>Welcome to Syncora AI 👋</h2>
+
+                <p>
+                    Transform your meeting conversations into
+                    actionable insights with Artificial Intelligence.
+                </p>
+
+            </section>
+
+
+            <!-- Feature Cards -->
+            <section class="feature-dashboard">
+
+                <h2>Explore Features</h2>
+
+                <p>Select a feature to get started.</p>
+
+                <div class="feature-grid">
+
+                    <div class="feature-card"
+                         onclick="showSection('upload')">
+
+                        <h3>📁 Upload Meeting</h3>
+
+                        <p>Upload PDF or TXT meeting transcript.</p>
+
+                        <span>Get Started →</span>
+
+                    </div>
+
+
+                    <div class="feature-card"
+                         onclick="showSection('insights')">
+
+                        <h3>🧠 Meeting Insights</h3>
+
+                        <p>Generate summaries, decisions and action items.</p>
+
+                        <span>Explore →</span>
+
+                    </div>
+
+
+                    <div class="feature-card"
+                         onclick="showSection('assistant')">
+
+                        <h3>💬 AI Assistant</h3>
+
+                        <p>Ask questions using Retrieval-Augmented Generation.</p>
+
+                        <span>Ask AI →</span>
+
+                    </div>
+
+
+                    <div class="feature-card"
+                         onclick="showSection('history')">
+
+                        <h3>🕒 Meeting History</h3>
+
+                        <p>Access previously uploaded meetings.</p>
+
+                        <span>View History →</span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- Upload Meeting -->
+        <section id="upload" class="panel feature-page">
+
+            <button class="back-btn" onclick="showDashboard()">
+                ← Back to Dashboard
+            </button>
+
+            <h2>Upload Meeting</h2>
+
+            <p>Upload your meeting transcript in PDF or TXT format.</p>
+
+            <input type="file" id="meetingFile" accept=".pdf,.txt">
+
+            <button onclick="uploadMeeting()">
+                Analyze Meeting
+            </button>
+
+            <p id="uploadStatus"></p>
+
+        </section>
+
+
+        <!-- Meeting Insights -->
+        <section id="insights" class="panel feature-page">
+
+            <button class="back-btn" onclick="showDashboard()">
+                ← Back to Dashboard
+            </button>
+
+            <h2>Meeting Insights</h2>
+
+            <p>
+                AI-generated meeting summary, decisions,
+                action items and responsible persons.
+            </p>
+
+            <div id="insightOutput">
+                <p>Your meeting insights will appear here.</p>
+            </div>
+
+
+            <!-- Email Section -->
+            <div class="email-section">
+
+                <h3>✉ Share Meeting Report</h3>
+
+                <p>
+                    Send your AI-generated meeting report through Gmail.
+                </p>
+
+                <input
+                    type="email"
+                    id="recipientEmail"
+                    placeholder="Enter recipient email address"
+                >
+
+                <div class="email-buttons">
+
+                    <button onclick="sendMeetingEmail()">
+                        ✉ Send Meeting Report
+                    </button>
+
+                    <button class="clear-btn" onclick="clearEmail()">
+                        Clear Email
+                    </button>
+
+                </div>
+
+                <p id="emailStatus"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI Assistant -->
+        <section id="assistant" class="panel feature-page">
+
+            <button class="back-btn" onclick="showDashboard()">
+                ← Back to Dashboard
+            </button>
+
+            <h2>Ask Your Meeting</h2>
+
+            <p>
+                Ask questions and get answers from your uploaded meeting
+                using Retrieval-Augmented Generation (RAG).
+            </p>
+
+            <div class="question-box">
+
+                <input
+                    type="text"
+                    id="question"
+                    placeholder="Ask something about the meeting..."
+                >
+
+                <button onclick="askQuestion()">Ask AI</button>
+
+                <button class="clear-btn" onclick="clearQuestion()">
+                    Clear
+                </button>
+
+            </div>
+
+            <div id="answerOutput"></div>
+
+        </section>
+
+
+        <!-- Meeting History -->
+        <section id="history" class="panel feature-page">
+
+            <button class="back-btn" onclick="showDashboard()">
+                ← Back to Dashboard
+            </button>
+
+            <h2>Meeting History</h2>
+
+            <p>View your previously uploaded and analyzed meetings.</p>
+
+            <div id="meetingHistory">
+                Loading meeting history...
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer>
+
+            Syncora AI © 2026 | Intelligent Meeting Assistant
+
+            <br>
+
+            Team QUBIC
+
+        </footer>
+
+    </main>
+
+
+    <!-- Existing JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+    <!-- Navigation and Email JavaScript -->
+    <script>
+
+        // Open Feature Sections
+        function showSection(sectionId) {
+
+            document.getElementById("dashboard").style.display = "none";
+
+            document.querySelectorAll(".feature-page").forEach(function(section) {
+
+                section.classList.remove("active");
+
+            });
+
+            document.getElementById(sectionId).classList.add("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        // Back to Dashboard
+        function showDashboard() {
+
+            document.querySelectorAll(".feature-page").forEach(function(section) {
+
+                section.classList.remove("active");
+
+            });
+
+            document.getElementById("dashboard").style.display = "block";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        // Send Meeting Report through Gmail
+        function sendMeetingEmail() {
+
+            const recipient = document.getElementById("recipientEmail").value.trim();
+
+            const report = document.getElementById("insightOutput").innerText;
+
+            const status = document.getElementById("emailStatus");
+
+
+            // Validate Email
+            if (!recipient) {
+
+                status.innerText = "Please enter recipient email address.";
+
+                return;
+
+            }
+
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
+
+                status.innerText = "Please enter a valid email address.";
+
+                return;
+
+            }
+
+
+            // Check Meeting Report
+            if (!report || report.includes("Your meeting insights will appear here.")) {
+
+                status.innerText = "Please analyze a meeting first.";
+
+                return;
+
+            }
+
+
+            // Email Subject
+            const subject = "Syncora AI - Meeting Report";
+
+
+            // Email Body
+            const body =
+                "Hello,\n\n" +
+                "Please find the meeting report generated by Syncora AI.\n\n" +
+                report +
+                "\n\nRegards,\nSyncora AI Team";
+
+
+            // Gmail Compose URL
+            const gmailURL =
+                "https://mail.google.com/mail/?view=cm&fs=1" +
+                "&to=" + encodeURIComponent(recipient) +
+                "&su=" + encodeURIComponent(subject) +
+                "&body=" + encodeURIComponent(body);
+
+
+            // Open Gmail in New Tab
+            const emailWindow = window.open(gmailURL, "_blank");
+
+
+            if (emailWindow) {
+
+                status.innerText =
+                    "Gmail opened. Please review your report and click Send.";
+
+            } else {
+
+                status.innerText =
+                    "Popup blocked. Please allow popups for this site and try again.";
+
+            }
+
+        }
+
+
+        // Clear Email
+        function clearEmail() {
+
+            document.getElementById("recipientEmail").value = "";
+
+            document.getElementById("emailStatus").innerText = "";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
